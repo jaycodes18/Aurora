@@ -46,7 +46,21 @@ npm install
 npm run dev
 ```
 
-After `npm run dev`, your browser should open automatically at **`http://localhost:3000/Aurora/`** (port **3000**, path **`/Aurora/`** matches GitHub Pages when the repo is named `Aurora`).
+After `npm run dev`, open **`http://localhost:3000/`** (root path). Port **3000** is set in Vite.
+
+### Vercel (fix white screen)
+
+This project defaults to **`base: "/"`**, which is correct for Vercel at `https://your-app.vercel.app/`.
+
+If you previously built with **`base: "/Aurora/"`** (GitHub Pages only), scripts load from the wrong path on Vercel → **blank white page**. Redeploy after pulling the latest config.
+
+Optional `vercel.json` includes an SPA fallback. Set **Framework Preset: Vite**, **Output:** `dist`, **Install:** `npm install`, **Build:** `npm run build`.
+
+Do **not** set `VITE_BASE_PATH` on Vercel unless you deploy under a subpath.
+
+### GitHub Pages (`/Aurora/`)
+
+The GitHub Action sets **`VITE_BASE_PATH=/Aurora/`** during build so assets resolve at `https://user.github.io/Aurora/`.
 
 ## Publish to GitHub (`jaycodes18/Aurora`)
 
@@ -68,7 +82,7 @@ git push -u origin main
 2. **Source:** GitHub Actions  
 3. After the workflow succeeds, the site will be at **https://jaycodes18.github.io/Aurora/**
 
-If you **rename the GitHub repo**, update `vite.config.ts` `base` to `"/<new-repo-name>/"` and adjust Pages URLs in this README.
+If you **rename the GitHub repo**, change **`VITE_BASE_PATH`** in `.github/workflows/deploy.yml` to `"/<new-repo-name>/"` and adjust Pages URLs in this README.
 
 ## Stage 2 submission checklist (outside this repo)
 
