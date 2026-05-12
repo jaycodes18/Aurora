@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --accent: 45 212 191;
+  --surface: 24 24 27;
+}
+
+body {
+  @apply min-h-screen bg-zinc-950 font-sans text-zinc-100 antialiased;
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(45, 212, 191, 0.08), transparent),
+    linear-gradient(180deg, rgb(9 9 11) 0%, rgb(24 24 27) 45%, rgb(9 9 11) 100%);
+}
+
+::selection {
+  @apply bg-teal-500/30 text-white;
+}
+
+@layer utilities {
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-teal-300 via-teal-400 to-cyan-300 bg-clip-text text-transparent;
+  }
+
+  .border-grid-soft {
+    background-image: linear-gradient(rgba(63, 63, 70, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(63, 63, 70, 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
