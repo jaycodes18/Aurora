@@ -50,13 +50,16 @@ After `npm run dev`, open **`http://localhost:3000/`** (root path). Port **3000*
 
 ### Vercel (fix white screen)
 
-This project defaults to **`base: "/"`**, which is correct for Vercel at `https://your-app.vercel.app/`.
+Builds on Vercel set **`base: "/"` automatically** (`process.env.VERCEL`), even if **`VITE_BASE_PATH`** was accidentally added in the Vercel dashboard for GitHub Pages.
 
-If you previously built with **`base: "/Aurora/"`** (GitHub Pages only), scripts load from the wrong path on Vercel → **blank white page**. Redeploy after pulling the latest config.
+**If you still see a blank page:** open your deployed `index.html` (View Source). If script tags look like **`/Aurora/assets/...`**, the deployment is wrong for Vercel.
 
-Optional `vercel.json` includes an SPA fallback. Set **Framework Preset: Vite**, **Output:** `dist`, **Install:** `npm install`, **Build:** `npm run build`.
+1. **Vercel → Project → Settings → Environment Variables:** delete **`VITE_BASE_PATH`** (or any value containing `Aurora`) for Production.
+2. Redeploy (**Deployments → … → Redeploy**, enable **Clear build cache**).
 
-Do **not** set `VITE_BASE_PATH` on Vercel unless you deploy under a subpath.
+No `vercel.json` is required; use Framework Preset **Vite**, Output **`dist`**, Build **`npm run build`**.
+
+Do **not** set `VITE_BASE_PATH` on Vercel unless you intentionally host under a subpath (unusual).
 
 ### GitHub Pages (`/Aurora/`)
 
